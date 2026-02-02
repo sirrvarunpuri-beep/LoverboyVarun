@@ -2,61 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Be My Valentine ❤️</title>
+  <title>Sanskriti 💖</title>
+
+  <!-- Cute Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
   <style>
     body {
       height: 100vh;
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #ffe6eb;
-      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+      font-family: 'Quicksand', sans-serif;
+      overflow: hidden;
     }
 
     .card {
-      text-align: center;
       background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 45px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+      animation: popIn 1s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     h1 {
-      margin-bottom: 30px;
+      font-family: 'Pacifico', cursive;
+      color: #ff4d88;
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 35px;
     }
 
     button {
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-size: 18px;
+      border-radius: 14px;
       border: none;
-      border-radius: 10px;
       cursor: pointer;
-      position: relative;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
     }
 
     #yes {
-      background-color: #ff4d6d;
+      background: #ff4d88;
       color: white;
+      box-shadow: 0 8px 20px rgba(255,77,136,0.4);
       margin-right: 20px;
     }
 
     #no {
-      background-color: #ccc;
+      background: #ffd1dc;
+      color: #555;
       position: absolute;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      color: #ff4d88;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>Will you be my Valentine? ❤️</h1>
-    <button id="yes" onclick="yesClicked()">Yes 💖</button>
-    <button id="no">No 💔</button>
+    <h1>Sanskriti 💖</h1>
+    <h2>Will you be my Valentine?</h2>
+
+    <button id="yes">Yes 🥰</button>
+    <button id="no">No 🙈</button>
   </div>
+
+  <!-- Background music -->
+  <audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const music = document.getElementById("music");
 
+    // No button escapes
     noBtn.addEventListener("mouseover", () => {
       const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
       const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -64,21 +123,46 @@
       noBtn.style.top = y + "px";
     });
 
-    function yesClicked() {
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 400);
+
+    // Yes button magic
+    yesBtn.addEventListener("click", () => {
+      music.play();
+
       document.body.innerHTML = `
         <div style="
           height:100vh;
           display:flex;
+          flex-direction:column;
           justify-content:center;
           align-items:center;
-          background:#ffe6eb;
-          font-family:Arial;
+          background:linear-gradient(135deg,#ffd6e8,#ffeef5);
+          font-family:'Pacifico', cursive;
           text-align:center;
+          padding:20px;
         ">
-          <h1>Yayyy! 💕🥰<br>You just made my day!</h1>
+          <h1 style="color:#ff4d88;font-size:50px;">YAYYYY 🥹💖</h1>
+          <h2 style="font-family:Quicksand;color:#555;">
+            Sanskriti, you just made my heart super happy 🥰  
+            <br><br>
+            Happy Valentine’s Day 💕
+          </h2>
         </div>
       `;
-    }
+    });
   </script>
 
 </body>
